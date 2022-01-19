@@ -134,7 +134,7 @@ public class MainUI : MonoBehaviour
 
     private void Callback_SearchBook(SearchBookData data)
     {
-        if(null == data)
+        if(null == data || null == data.books)
         {
             // 실패 혹은 마지막 페이지
             this.needDownLoad = false;

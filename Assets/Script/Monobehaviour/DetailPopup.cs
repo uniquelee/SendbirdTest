@@ -11,6 +11,7 @@ public class DetailPopup : MonoBehaviour
     public Text text_Info;
     public RawImage image_BookImg;
     public RectTransform transform_Content;
+    public GameObject loadingImg;
     public Button button_X;
     #endregion
 
@@ -25,6 +26,7 @@ public class DetailPopup : MonoBehaviour
     {
         InitUI();
         this.gameObject.SetActive(true);
+        this.loadingImg.SetActive(true);
     }
 
     private void InitUI()
@@ -77,6 +79,15 @@ public class DetailPopup : MonoBehaviour
         return msg;
     }
 
+    private void Update()
+    {
+        if(true == this.loadingImg.activeSelf)
+        {
+            float addZ = Time.deltaTime * 360; // 1초에 한바퀴
+            this.loadingImg.transform.AddRotation(new Vector3(0, 0, -addZ));
+        }
+    }
+
     private void LateUpdate()
     {
         // 이미지 세팅
@@ -84,6 +95,7 @@ public class DetailPopup : MonoBehaviour
         {
             if (true == Data.rawBookImgDic.ContainsKey(this.book.image))
             {
+                this.loadingImg.SetActive(false);
                 this.image_BookImg.gameObject.SetActive(true);
                 this.image_BookImg.texture = Data.rawBookImgDic[this.book.image];
             }
